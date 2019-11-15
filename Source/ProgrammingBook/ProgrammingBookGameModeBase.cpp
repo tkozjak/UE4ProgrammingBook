@@ -76,9 +76,10 @@ void AProgrammingBookGameModeBase::BeginPlay() {
 
 	//SPAWNING ACTOR
 	FTransform actorSpawnLoacation;
+	actorSpawnLoacation.SetTranslation(FVector(0.0, 0.0, 250.0));
 	UWorld* world = this->GetWorld();
 	FString worldName = world->GetName();
-	UE_LOG(LogTemp, Warning, TEXT("The name of the world: %s"), *worldName);
+	UE_LOG(LogTemp, Warning, TEXT("Called from GameMode/BeginPlay. The name of the world: %s"), *worldName);
 	world->SpawnActor<AMyFirstActor>(AMyFirstActor::StaticClass(), actorSpawnLoacation);
 
 }

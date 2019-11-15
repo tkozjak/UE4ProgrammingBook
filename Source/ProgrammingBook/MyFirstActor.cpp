@@ -9,8 +9,13 @@ AMyFirstActor::AMyFirstActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	//adding subcomponent
+	//adding ActorComponent subclass 
 	actorStaticMesh = CreateDefaultSubobject<UStaticMeshComponent>("BaseMeshComponent");
+	//load UStaticMesh asset from the disk and add its mesh (.Object) to UStaticMeshComponent
+	auto meshAsset = ConstructorHelpers::FObjectFinder<UStaticMesh>(TEXT("StaticMesh'/Engine/BasicShapes/Cube.Cube'"));
+	if (meshAsset.Object != nullptr) {
+		actorStaticMesh->SetStaticMesh(meshAsset.Object);
+	}
 }
 
 FString AMyFirstActor::toString() {
@@ -22,9 +27,10 @@ void AMyFirstActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FString thisActorName = this->GetName();
-		
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, TEXT("Actor spawned"));
+	FString nameOfThisActor = this->GetName();	
+	FString classOfThisActor = this->GetClass()->GetName();
+
+	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, FString::Printf(TEXT("Called from the Actor/BeginPlay. Name of the class: %s  Name of the object: %s"), *classOfThisActor, *nameOfThisActor) );
 }
 
 // Called every frame

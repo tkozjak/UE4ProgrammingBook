@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Engine/Engine.h"
+#include "UObject/ConstructorHelpers.h"
 #include "MyFirstActor.generated.h"
 
 UCLASS()
@@ -16,11 +17,15 @@ public:
 	// Sets default values for this actor's properties
 	AMyFirstActor();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Properties) FString actorName;
+	// name field
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Properties) FString actorName = "default_name";
+	// function that returns the value name field
+	UFUNCTION(BlueprintCallable, Category = Properties) FString toString();
 
+	// ptr ot mesh component ActorComponent
 	UPROPERTY() UStaticMeshComponent* actorStaticMesh;
 
-	UFUNCTION(BlueprintCallable, Category = Properties) FString toString();
+	
 
 protected:
 	// Called when the game starts or when spawned
