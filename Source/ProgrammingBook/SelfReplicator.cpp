@@ -30,8 +30,9 @@ void ASelfReplicator::incrementReplicaCount() {
 
 	replicaCount += 1;
 
+	
 	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Red, FString::Printf(TEXT("Repica count: %i"), replicaCount));
-	if (replicaCount<20) {
+	if (replicaCount < 20) {
 		auto actorSpawnLocation = this->GetTargetLocation() + FVector(50 * FMath::FRandRange(-1, 1), 50 * FMath::FRandRange(-1, 1), 50 * FMath::FRandRange(-1, 1));
 		UWorld* world = this->GetWorld();
 		world->SpawnActor(ASelfReplicator::StaticClass(), &actorSpawnLocation);
